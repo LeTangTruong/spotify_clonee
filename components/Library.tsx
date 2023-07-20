@@ -1,10 +1,20 @@
 "use client"
 import {TbPlaylist} from "react-icons/tb";
 import {AiOutlinePlus} from "react-icons/ai";
+import useAuthModal from "@/hooks/UseAuthModal";
+import {useUser} from "@/hooks/useUser";
+import useUploadModal from "@/hooks/UseUploadModal";
 
 const Library = () => {
+    const authModal = useAuthModal();
+    const uploadModal = useUploadModal();
+    const {user} = useUser();
     const onClick = () => {
-
+        if (!user) {
+            return authModal.onOpen();
+        }
+        //check for subscription
+        return uploadModal.onOpen();
     };
     return (
         <div>
@@ -32,6 +42,7 @@ const Library = () => {
             gap-y-2
             mt-4
             px-3">
+                List of songs
             </div>
         </div>
     )
