@@ -1,43 +1,49 @@
-"use client"
+"use client";
 
-import {useSessionContext, useSupabaseClient} from "@supabase/auth-helpers-react";
-import {useRouter} from "next/navigation";
-import {Auth} from "@supabase/auth-ui-react";
-import Modal from "@/components/Modal";
-import React, {useEffect} from "react";
-import {ThemeSupa} from "@supabase/auth-ui-shared";
+import React, {useEffect} from 'react';
+import {Auth} from '@supabase/auth-ui-react';
+import {ThemeSupa} from '@supabase/auth-ui-shared';
+import {
+    useSessionContext,
+    useSupabaseClient
+} from '@supabase/auth-helpers-react';
+import {useRouter} from 'next/navigation';
+
 import useAuthModal from "@/hooks/useAuthModal";
 
+import Modal from './Modal';
+
 const AuthModal = () => {
-    const supabaseClient = useSupabaseClient();
-    const router = useRouter();
     const {session} = useSessionContext();
+    const router = useRouter();
     const {onClose, isOpen} = useAuthModal();
+
+    const supabaseClient = useSupabaseClient();
 
     useEffect(() => {
         if (session) {
             router.refresh();
             onClose();
         }
-    }, [session, router, onClose])
+    }, [session, router, onClose]);
 
-    const onChange = (isOpen: boolean) => {
+    const onChange = (open: boolean) => {
         if (!open) {
             onClose();
         }
-    };
+    }
 
     return (
         <Modal
             title="Welcome back"
-            description="login to your account"
+            description="Login to your account."
             isOpen={isOpen}
             onChange={onChange}
         >
             <Auth
-                theme="dark"
-                providers={['github']}
                 supabaseClient={supabaseClient}
+                providers={['github']}
+                magicLink={true}
                 appearance={{
                     theme: ThemeSupa,
                     variables: {
@@ -49,8 +55,10 @@ const AuthModal = () => {
                         }
                     }
                 }}
+                theme="dark"
             />
         </Modal>
     );
 }
+
 export default AuthModal;
