@@ -1,7 +1,7 @@
 "use client"
 import uniqid from "uniqid";
 import Modal from "@/components/Modal";
-import useUploadModal from "@/hooks/UseUploadModal";
+import useUploadModal from "@/hooks/useUploadModal";
 import {FieldValue, FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {useState} from "react";
 import Input from "@/components/Input";

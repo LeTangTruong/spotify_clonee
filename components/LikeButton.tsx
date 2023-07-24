@@ -7,7 +7,7 @@ import {toast} from "react-hot-toast";
 import {useSessionContext} from "@supabase/auth-helpers-react";
 
 import {useUser} from "@/hooks/useUser";
-import useAuthModal from "@/hooks/UseAuthModal";
+import useAuthModal from "@/hooks/useAuthModal";
 
 interface LikeButtonProps {
     songId: string;
